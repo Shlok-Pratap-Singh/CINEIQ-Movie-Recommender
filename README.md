@@ -87,7 +87,7 @@ In a separate terminal:
 ```bash
 python app.py
 ```
-Open your browser and navigate to http://127.0.0.1:5000 to interact with the dashboard.
+Open your browser and navigate to `http://127.0.0.1:5000` to interact with the dashboard.
 
 ## API Endpoints
 - `GET /recommend?user_id=...&movie_title=...`: Fetches top 5 content-collaborative hybrid recommendations re-ranked with active VADER sentiment analytics.
