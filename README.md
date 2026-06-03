@@ -21,13 +21,15 @@ Content discovery on modern streaming platforms is opaque, biased toward promote
 ## Repository Structure
 ```
 .
-├── app.py                 # Streamlit UI
-├── main.py                # FastAPI backend
-├── filtering_content.py   # Data prep + model training
+├── app.py                 # Flask web application server (Frontend proxy)
+├── main.py                # FastAPI backend engine (Recommendation logic & API)
+├── filtering_content.py   # Data preparation, preprocessing, and offline model training
+├── templates/             # Frontend UI templates
+│   └── index.html         # Main web portal layout
 ├── data/                  # Dataset folder (download required)
-├── models/                # Model artifacts folder (download required)
-├── .env.example
-└── requirements.txt
+├── models/                # Trained serialization model artifacts (download required)
+├── .env.example           # Environment configuration template
+└── requirements.txt       # Project dependencies
 ```
 
 ## Setup
@@ -83,13 +85,13 @@ The API will run at `http://127.0.0.1:8000`.
 ### 3) Start the Streamlit dashboard
 In a separate terminal:
 ```bash
-streamlit run app.py
+python app.py
 ```
-The UI will run at `http://localhost:8501`.
+Open your browser and navigate to http://127.0.0.1:5000 to interact with the dashboard.
 
 ## API Endpoints
-- `GET /recommend?user_id=...&movie_title=...`
-- `GET /user_stats/{user_id}`
+- `GET /recommend?user_id=...&movie_title=...`: Fetches top 5 content-collaborative hybrid recommendations re-ranked with active VADER sentiment analytics.
+- `GET /user_stats/{user_id}`:Compiles taste profiling distributions (genre weights and decade metrics) for a given user profile.
 
 ---
 
