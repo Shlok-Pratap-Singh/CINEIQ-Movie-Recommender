@@ -127,3 +127,5 @@ if not os.path.exists(model_path):
 pickle.dump(final_movies, open(os.path.join(model_path, 'movie_list.pkl'), 'wb'))
 pickle.dump(similarity, open(os.path.join(model_path, 'similarity.pkl'), 'wb'))
 pickle.dump(svd_model, open(os.path.join(model_path, 'svd_model.pkl'), 'wb'))
+
+pickle.dump(ratings, open(os.path.join(model_path, 'user_ratings.pkl'), 'wb'))
