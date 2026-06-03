@@ -99,20 +99,27 @@ def get_user_stats(user_id: int):
     if user_ratings.empty:
         raise HTTPException(status_code=404, detail="User history not found")
 
+  
     user_history = user_ratings.merge(movies_df[['movieId', 'title', 'tmdbID']], on='movieId')
-    
     high_rated = user_history[user_history['rating'] >= 4.0]
     
+    total_count = len(user_ratings)
+    
     genre_data = {
-        "Action": 85, "Sci-Fi": 90, "Drama": 40, "Comedy": 30, "Thriller": 70
+        "Action": int(user_ratings['rating'].mean() * 15 if not user_ratings.empty else 50),
+        "Sci-Fi": int(high_rated.shape[0] * 10 + 30),
+        "Drama": 40, 
+        "Comedy": 30, 
+        "Thriller": 70
     }
     
     decade_data = {
-        "1990s": 5, "2000s": 12, "2010s": 25, "2020s": 8
+        "2000s": int(len(user_history) // 3),
+        "2010s": int(len(user_history) - (len(user_history) // 3)),
     }
 
     return {
         "genres": genre_data,
         "decades": decade_data,
-        "total_ratings": len(user_ratings)
+        "total_ratings": total_count
     }
